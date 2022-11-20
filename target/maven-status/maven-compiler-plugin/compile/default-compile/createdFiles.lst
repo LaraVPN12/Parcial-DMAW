@@ -1,0 +1,3 @@
+Model\Auto.class
+Controller\UsuarioController.class
+Interface\IAutoCRUD.class
