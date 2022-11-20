@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface IUsuarioCRUD {
     public List loginUser(Usuario user);
+    public List<Usuario> getUsuarios();
     public Usuario getUsuario(int id_usuario);
     public boolean addUsuario(Usuario usuario);
     public boolean updateUsuario(Usuario usuario);
