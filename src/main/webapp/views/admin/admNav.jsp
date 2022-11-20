@@ -22,7 +22,7 @@
                             <li><a class="inline-block no-underline hover:text-black font-semibold text-lg py-2 px-4 lg:-ml-2" href="#">Autos</a></li>
                         </div>
                         <li>
-                            <div class="px-2 py-1 rounded-md bg-red-400"><a class="no-underline font-bold" href="http://localhost:8080/Lab02-DMAW-P3/ServletCerrarSesion">Cerrar Sesión</a></div>
+                            <div class="px-2 py-1 rounded-md bg-red-400"><a class="no-underline font-bold" href="http://localhost:8080/Parcial-DMAW/ServletCerrarSesion">Cerrar Sesión</a></div>
                         </li>
                     </ul>
                 </nav>
