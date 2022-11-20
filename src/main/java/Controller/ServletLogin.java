@@ -75,7 +75,11 @@ public class ServletLogin extends HttpServlet {
                     session.setAttribute("apellido", userIterator.getApellido());
                     session.setAttribute("admin", userIterator.getAdmin().toString());
                     session.setAttribute("id_usuario", userIterator.getId_usuario());
-                    response.sendRedirect("views/Principal.jsp");
+                    if (userIterator.getAdmin()) {
+                        response.sendRedirect("views/admin/admHome.jsp");
+                    } else {
+                        response.sendRedirect("views/cliente/cliHome.jsp");
+                    }
                 }
             }
             

@@ -51,7 +51,7 @@
                                 <input class="bg-slate-100 w-full rounded-md focus:outline-none px-3 py-2 mt-2 mb-10" type="password" name="password">
                                 <input class="w-full px-3 py-2 bg-green-800 font-bold text-white rounded-md mb-5" type="submit" name="login" value="Iniciar Sesión">
                                 <div class="w-full flex flex-row justify-center items-center">
-                                    <span>¿No tienes una cuenta?</span><a class="font-bold ml-2" href="#">Regístrate ahora</a>
+                                    <span>¿No tienes una cuenta?</span><a class="font-bold ml-2" href="UsuarioController?action=registration">Regístrate ahora</a>
                                 </div>
                             </form>
                             <!--Fin del Bloque del Formulario-->

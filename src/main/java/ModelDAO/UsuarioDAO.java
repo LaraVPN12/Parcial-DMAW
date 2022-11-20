@@ -15,11 +15,10 @@ public class UsuarioDAO implements IUsuarioCRUD{
     Connection conn;
     PreparedStatement ps;
     ResultSet rs;
-    Usuario user = new Usuario();
 
     @Override
     public List loginUser(Usuario user) {
-         ArrayList<Usuario> list = new ArrayList<>();
+        ArrayList<Usuario> list = new ArrayList<>();
         String sql = "SELECT * FROM usuario WHERE correo = ? AND contra = ?";
         try {
             conn = cn.getConnection();
@@ -42,6 +41,30 @@ public class UsuarioDAO implements IUsuarioCRUD{
         }
         return list;
     }
+    
+    @Override
+    public List<Usuario> getUsuarios() {
+        ArrayList<Usuario> list = new ArrayList<>();
+        String sql = "SELECT * FROM usuario WHERE admin = false";
+        try {
+            conn = cn.getConnection();
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Usuario usuario = new Usuario();
+                usuario.setId_usuario(rs.getInt("id_usuario"));
+                usuario.setNombre(rs.getString("nombre"));
+                usuario.setApellido(rs.getString("apellido"));
+                usuario.setCorreo(rs.getString("correo"));
+                usuario.setContra(rs.getString("contra"));
+                usuario.setAdmin(rs.getBoolean("admin"));
+                list.add(usuario);
+            }
+        } catch (Exception e) {
+            
+        }
+        return list;
+    }
 
     @Override
     public Usuario getUsuario(int id_usuario) {
@@ -50,17 +73,42 @@ public class UsuarioDAO implements IUsuarioCRUD{
 
     @Override
     public boolean addUsuario(Usuario usuario) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql = "INSERT INTO usuario (nombre, apellido, correo, contra) VALUES(?, ?, ?, ?)";
+        try {
+            conn = cn.getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, usuario.getNombre());
+            ps.setString(2, usuario.getApellido());
+            ps.setString(3, usuario.getCorreo());
+            ps.setString(4, usuario.getContra());
+            ps.executeUpdate();
+            return true;
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Override
     public boolean updateUsuario(Usuario usuario) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql = "UPDATE usuario SET nombre=?, apellido=?, correo=?, contra=? WHERE id_usuario ='"+usuario.getId_usuario()+"' ";
+        try {
+            conn = cn.getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, usuario.getNombre());
+            ps.setString(2, usuario.getApellido());
+            ps.setString(3, usuario.getCorreo());
+            ps.setString(4, usuario.getContra());
+            ps.executeUpdate();
+            return true;
+        }catch(Exception e) {
+            
+        }
+        return false;
     }
 
     @Override
     public boolean deleteUsuario(int id_usuario) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
 }
