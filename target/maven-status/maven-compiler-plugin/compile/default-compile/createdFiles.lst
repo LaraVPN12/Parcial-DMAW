@@ -1,4 +1,5 @@
-Controller\ServletCerrarSesion.class
+ModelDAO\AutoDAO.class
 Model\Auto.class
-Controller\UsuarioController.class
 Interface\IAutoCRUD.class
+Controller\ServletCerrarSesion.class
+Controller\UsuarioController.class
