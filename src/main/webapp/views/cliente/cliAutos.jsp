@@ -17,7 +17,7 @@
         <script src="https://cdn.tailwindcss.com"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
     </head>
-     <%
+    <%
         if (session.getAttribute("admin").equals("true")) {
     %>
     <jsp:include page="admin/admNav.jsp" flush="true" />
@@ -42,7 +42,7 @@
                         <div class="w-[20%]">
                             <img src="<%
                                 out.print(list.get(i).getImagen());
-                            %>"/>
+                                 %>"/>
                         </div>
                         <div class="w-auto flex justify-center items-center">
                             <div class="flex flex-col divide-y-2 divide-dashed">
@@ -122,7 +122,7 @@
                                     </div>
                                 </div>
                                 <div class="">
-                                    <input class="py-2 w-full bg-[#035771] font-bold text-white rounded-lg" type="submit" name="survey" value="Rentar">
+                                    <a href="cliAutosDetalle.jsp?id=<%out.print(list.get(i).getId_auto());%>"><div class="py-2 flex justify-center items-center w-full bg-[#035771] font-bold text-white rounded-lg">Rentar</div></a>
                                 </div>
                             </div>
                         </div>
