@@ -1,5 +1,12 @@
+DB\Connect.class
+Model\Usuario.class
 ModelDAO\AutoDAO.class
 Model\Auto.class
+Controller\ServletLogin.class
 Interface\IAutoCRUD.class
+com\mycompany\sistemaalquiler\JAXRSConfiguration.class
+Interface\IUsuarioCRUD.class
 Controller\ServletCerrarSesion.class
+com\mycompany\sistemaalquiler\resources\JavaEE8Resource.class
 Controller\UsuarioController.class
+ModelDAO\UsuarioDAO.class
