@@ -35,11 +35,36 @@ public class AutoDAO implements IAutoCRUD {
                 auto.setTransmision(rs.getString("transmision"));
                 auto.setCapacidad(rs.getInt("capacidad"));
                 auto.setTipo_combustible(rs.getString("tipo_combustible"));
-
                 list.add(auto);
             }
         } catch (Exception e) {
 
+        }
+        return list;
+    }
+    
+    public List getAutoById(int id) {
+        List<Auto> list = new ArrayList<>();
+        String sql = "SELECT * FROM auto WHERE id_auto = '"+id+"'";
+        try{
+            conn = cn.getConnection();
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while(rs.next()) {
+                Auto auto = new Auto();
+                auto.setId_auto(rs.getInt("id_auto"));
+                auto.setMarca(rs.getString("marca"));
+                auto.setModelo(rs.getString("modelo"));
+                auto.setColor(rs.getString("color"));
+                auto.setImagen(rs.getString("imagen"));
+                auto.setId_tipo_auto(rs.getInt("id_tipo_auto"));
+                auto.setTransmision(rs.getString("transmision"));
+                auto.setCapacidad(rs.getInt("capacidad"));
+                auto.setTipo_combustible(rs.getString("tipo_combustible"));
+                list.add(auto);
+            }
+        }catch(Exception e) {
+            
         }
         return list;
     }
