@@ -19,8 +19,8 @@
                 <nav>
                     <ul class="flex items-start justify-between items-center text-base text-white pt-4 md:pt-0">
                         <div class="flex flex-row">
-                            <li><a class="inline-block no-underline hover:text-black font-semibold text-lg py-2 px-4 lg:-ml-2" href="views/cliente/cliHome.jsp">Página Principal</a></li>
-                            <li><a class="inline-block no-underline hover:text-black font-semibold text-lg py-2 px-4 lg:-ml-2" href="#">Nuestros Autos</a></li>
+                            <li><a class="inline-block no-underline hover:text-black font-semibold text-lg py-2 px-4 lg:-ml-2" href="http://localhost:8080/Parcial-DMAW/views/cliente/cliHome.jsp">Página Principal</a></li>
+                            <li><a class="inline-block no-underline hover:text-black font-semibold text-lg py-2 px-4 lg:-ml-2" href="http://localhost:8080/Parcial-DMAW/views/cliente/cliAutos.jsp">Nuestros Autos</a></li>
                         </div>
                         <div class="flex justify-center items-center">
                             <li>
