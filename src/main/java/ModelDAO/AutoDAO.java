@@ -104,5 +104,18 @@ public class AutoDAO implements IAutoCRUD {
     public boolean deleteAuto(int id_auto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
+    public boolean updateIsRented(int id_auto, Boolean isrented) {
+        String sql = "UPDATE auto SET isrented=? WHERE id_usuario ='"+id_auto+"' ";
+        try {
+            conn = cn.getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setBoolean(1, isrented);
+            ps.executeUpdate();
+            return true;
+        }catch(Exception e) {
+            
+        }
+        return false;
+    }
 }

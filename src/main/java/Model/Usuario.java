@@ -8,16 +8,18 @@ public class Usuario {
     private String correo;
     private String contra;
     private Boolean admin;
+    private Boolean hasrented;
     
     public Usuario(){}
 
-    public Usuario(int id_usuario, String nombre, String apellido, String correo, String contra, Boolean admin) {
+    public Usuario(int id_usuario, String nombre, String apellido, String correo, String contra, Boolean admin, Boolean hasrented) {
         this.id_usuario = id_usuario;
         this.nombre = nombre;
         this.apellido = apellido;
         this.correo = correo;
         this.contra = contra;
         this.admin = admin;
+        this.hasrented = hasrented;
     }
 
     public int getId_usuario() {
@@ -68,5 +70,11 @@ public class Usuario {
         this.admin = admin;
     }
     
-    
+    public Boolean getHasrented() {
+        return hasrented;
+    }
+
+    public void setHasrented(Boolean hasrented) {
+        this.hasrented = hasrented;
+    }
 }

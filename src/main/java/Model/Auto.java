@@ -12,11 +12,12 @@ public class Auto {
     private String transmision;
     private int capacidad;
     private String tipo_combustible;
+    private Boolean isrented;
     
     
     public Auto(){}
 
-    public Auto(int id_auto, String marca, String modelo, String color, String placa, String imagen, int id_tipo_auto, String transmision, int capacidad, String tipo_combustible) {
+    public Auto(int id_auto, String marca, String modelo, String color, String placa, String imagen, int id_tipo_auto, String transmision, int capacidad, String tipo_combustible, Boolean isrented) {
         this.id_auto = id_auto;
         this.marca = marca;
         this.modelo = modelo;
@@ -27,6 +28,7 @@ public class Auto {
         this.transmision = transmision;
         this.capacidad = capacidad;
         this.tipo_combustible = tipo_combustible;
+        this.isrented = isrented;
     }
 
     public int getId_auto() {
@@ -108,6 +110,13 @@ public class Auto {
     public void setTipo_combustible(String tipo_combustible) {
         this.tipo_combustible = tipo_combustible;
     }
-    
+
+    public Boolean getIsrented() {
+        return isrented;
+    }
+
+    public void setIsrented(Boolean isrented) {
+        this.isrented = isrented;
+    }
     
 }

@@ -75,6 +75,7 @@ public class ServletLogin extends HttpServlet {
                     session.setAttribute("apellido", userIterator.getApellido());
                     session.setAttribute("admin", userIterator.getAdmin().toString());
                     session.setAttribute("id_usuario", userIterator.getId_usuario());
+                    session.setAttribute("hasrented", userIterator.getHasrented().toString());
                     response.sendRedirect("principal.jsp");
 //                    if (userIterator.getAdmin()) {
 //                        response.sendRedirect("views/admin/admHome.jsp");
