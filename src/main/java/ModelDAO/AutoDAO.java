@@ -6,6 +6,7 @@ import Model.Auto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -108,8 +109,18 @@ public class AutoDAO implements IAutoCRUD {
     }
 
     @Override
-    public boolean addAuto(Auto auto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean addAuto(Auto auto) throws ClassNotFoundException, SQLException {
+        String sql = "INSERT INTO auto (marca, modelo, color, imagen, id_tipo_auto, transmision, capacidad, tipo_combustible) VALUES(?, ?, ?, ?, '"+auto.getId_tipo_auto()+"', ?, '"+auto.getCapacidad()+"', ?)";
+        conn = cn.getConnection();
+        ps = conn.prepareStatement(sql);
+        ps.setString(1, auto.getMarca().toUpperCase());
+        ps.setString(2, auto.getModelo().toUpperCase());
+        ps.setString(3, auto.getColor().toUpperCase());
+        ps.setString(4, auto.getImagen());
+        ps.setString(5, auto.getTransmision().toUpperCase());
+        ps.setString(6, auto.getTipo_combustible().toUpperCase());
+        ps.executeUpdate();
+        return true;
     }
 
     @Override
@@ -136,6 +147,7 @@ public class AutoDAO implements IAutoCRUD {
         return false;
     }
     
+   
     public String getAutoName(int id_auto) {
         String sql = "SELECT concat(marca, ' ', modelo) FROM auto WHERE id_auto = '"+id_auto+"'";
         String name = "";

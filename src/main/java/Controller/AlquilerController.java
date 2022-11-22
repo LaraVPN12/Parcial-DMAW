@@ -4,6 +4,7 @@ import Model.Alquiler;
 import ModelDAO.AlquilerDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import javax.servlet.ServletException;
@@ -69,10 +70,17 @@ public class AlquilerController extends HttpServlet {
                 alquiler.setFecha_fin(fecha_fin);
                 alquiler.setTotal(total);
                 
-                alquilerDAO.addAlquiler(alquiler);
+            {
+                try {
+                    alquilerDAO.addAlquiler(alquiler);
+                } catch (ClassNotFoundException | SQLException ex) {
+                    Logger.getLogger(AlquilerController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
                 
                 response.sendRedirect("/Parcial-DMAW/views/cliente/cliHistorial.jsp");
                 break;
+
             default:
                 throw new AssertionError();
         }
