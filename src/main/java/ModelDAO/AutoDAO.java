@@ -63,22 +63,13 @@ public class AutoDAO implements IAutoCRUD {
         return response;
     }
     
-//    public Boolean updateEveryIsRented() {
-//        Date now = new Date();
-//        String fecha = new SimpleDateFormat("dd-MM-yyyy").format(now);
-//        String sql1 = "SELECT * FROM alquiler WHERE fecha_fin < '" + fecha + "'";
-//        try {
-//            conn = cn.getConnection();
-//            ps = conn.prepareStatement(sql1);
-//            rs = ps.executeQuery();
-//            while (rs.next()) {
-//                
-//            }
-//        } catch (Exception e) {
-//        }
-//            
-//        String sql2 = "UPDATE auto SET isrented = false WHERE fecha_fin";
-//    }
+    public Boolean updateEveryIsRented(int id_auto) throws ClassNotFoundException, SQLException {
+        String sql = "UPDATE auto SET isrented=false WHERE (SELECT MAX(fecha_fin) FROM alquiler WHERE id_auto = '" + id_auto + "') < '" + new Date() + "'";
+        conn = cn.getConnection();
+        ps = conn.prepareStatement(sql);
+        ps.executeUpdate();
+        return true;
+    }
 
     @Override
     public List getAuto(int id_auto) {
