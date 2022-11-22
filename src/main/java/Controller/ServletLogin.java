@@ -16,6 +16,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.crypto.spec.SecretKeySpec;
+import javax.crypto.Cipher;
+import java.security.MessageDigest;
 
 
 @WebServlet(name = "ServletLogin", urlPatterns = {"/ServletLogin"})
@@ -79,7 +82,7 @@ public class ServletLogin extends HttpServlet {
                     session.setAttribute("admin", userIterator.getAdmin().toString());
                     session.setAttribute("id_usuario", userIterator.getId_usuario());
                     if (dao.updateHasRentedFalse(userIterator.getId_usuario())) {
-                        userIterator.setHasrented(false);
+                        userIterator.setHasrented(dao.getHasRented(userIterator.getId_usuario()));
                     }
                     session.setAttribute("hasrented", userIterator.getHasrented().toString());
 //                    response.sendRedirect("principal.jsp");
@@ -94,7 +97,7 @@ public class ServletLogin extends HttpServlet {
             Logger.getLogger(ServletLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     @Override
     public String getServletInfo() {
         return "Short description";

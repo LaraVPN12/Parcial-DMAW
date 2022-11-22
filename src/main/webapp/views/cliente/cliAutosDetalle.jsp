@@ -27,6 +27,8 @@
     %>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="jquery-3.6.0.min.js"></script>
         <title>
             <%
                 out.print(list.get(0).getMarca() + " " + list.get(0).getModelo());
@@ -191,8 +193,8 @@
             </div>
             <%
                 if (session.getAttribute("hasrented").equals("true")) {
-            %>
-
+                %>
+                
             <%
             } else {
             %>
@@ -221,7 +223,7 @@
                                     Fecha de Devolución 
                                 </div>
                                 <div class="flex">
-                                    <input class="w-auto rounded-md bg-slate-100 focus:outline-none px-3 py-2 mt-2 mr-1" type="date" name="fin_date" required>
+                                    <input class="w-auto rounded-md bg-slate-100 focus:outline-none px-3 py-2 mt-2 mr-1" type="date" name="fin_date" id="dateControl" required>
                                 </div>
                                 <input hidden="true" type="number" name="id_auto" value="<% out.print(id_auto); %>">
                                 <input hidden="true" type="text" name="precio" value="<% out.print(precio);%>">
@@ -239,4 +241,17 @@
             %>
         </div>
     </body>
+    <script>
+        $(document).ready(function() {
+            var dtToday = new Date();
+            var month = dtToday.getMonth() + 1;
+            var day = dtToday.getDate() + 1;
+            var year = dtToday.getFullYear();
+            if(month < 10) month = '0' + month.toString();
+            if(day < 10) day ? '0' + day.toString();
+            
+            var maxDate = year + '-' + month + '-' + day;
+            $('#dateControl').attr('min', maxDate);
+        });
+    </script>
 </html>

@@ -10,6 +10,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.math.BigInteger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class UsuarioDAO implements IUsuarioCRUD {
 
@@ -26,7 +31,7 @@ public class UsuarioDAO implements IUsuarioCRUD {
             conn = cn.getConnection();
             ps = conn.prepareStatement(sql);
             ps.setString(1, user.getCorreo());
-            ps.setString(2, user.getContra());
+            ps.setString(2, getMD5(user.getContra()));
             rs = ps.executeQuery();
             while (rs.next()) {
                 Usuario usuario = new Usuario();
@@ -36,7 +41,7 @@ public class UsuarioDAO implements IUsuarioCRUD {
                 usuario.setCorreo(user.getCorreo());
                 usuario.setContra(user.getContra());
                 usuario.setAdmin(rs.getBoolean("admin"));
-                usuario.setHasrented(rs.getBoolean("hasRented"));
+                usuario.setHasrented(rs.getBoolean("hasrented"));
                 list.add(usuario);
             }
         } catch (Exception e) {
@@ -76,21 +81,20 @@ public class UsuarioDAO implements IUsuarioCRUD {
     }
 
     @Override
-    public boolean addUsuario(Usuario usuario) {
+    public boolean addUsuario(Usuario usuario) throws ClassNotFoundException, SQLException {
         String sql = "INSERT INTO usuario (nombre, apellido, correo, contra) VALUES(?, ?, ?, ?)";
+        conn = cn.getConnection();
+        ps = conn.prepareStatement(sql);
+        ps.setString(1, usuario.getNombre());
+        ps.setString(2, usuario.getApellido());
+        ps.setString(3, usuario.getCorreo());
         try {
-            conn = cn.getConnection();
-            ps = conn.prepareStatement(sql);
-            ps.setString(1, usuario.getNombre());
-            ps.setString(2, usuario.getApellido());
-            ps.setString(3, usuario.getCorreo());
-            ps.setString(4, usuario.getContra());
-            ps.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
+            ps.setString(4, getMD5(usuario.getContra()));
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return false;
+        ps.executeUpdate();
+        return true;
     }
 
     @Override
@@ -102,7 +106,7 @@ public class UsuarioDAO implements IUsuarioCRUD {
             ps.setString(1, usuario.getNombre());
             ps.setString(2, usuario.getApellido());
             ps.setString(3, usuario.getCorreo());
-            ps.setString(4, usuario.getContra());
+            ps.setString(4, getMD5(usuario.getContra()));
             ps.executeUpdate();
             return true;
         } catch (Exception e) {
@@ -130,5 +134,28 @@ public class UsuarioDAO implements IUsuarioCRUD {
         ps = conn.prepareStatement(sql);
         ps.executeUpdate();
         return true;
+    }
+    
+    public boolean getHasRented(int id_usuario) throws ClassNotFoundException, SQLException {
+        boolean hasrented = false;
+        String sql = "SELECT hasrented FROM usuario WHERE id_usuario = '" + id_usuario + "'";
+        conn = cn.getConnection();
+        ps = conn.prepareStatement(sql);
+        rs = ps.executeQuery();
+        while (rs.next()) {
+            hasrented = rs.getBoolean("hasrented");
+        }
+        return hasrented;
+    }
+
+    public String getMD5(String password) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        byte[] encBytes = md.digest(password.getBytes());
+        BigInteger num = new BigInteger(1, encBytes);
+        String encPassword = num.toString(16);
+        while (encPassword.length() < 32) {
+            encPassword = "0" + encPassword;
+        }
+        return encPassword;
     }
 }
