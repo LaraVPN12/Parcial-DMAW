@@ -4,6 +4,12 @@
 <%@page import="ModelDAO.AutoDAO"%>
 <%
     AutoDAO autoDao = new AutoDAO();
+    if (request.getParameter("delete") != null) {
+        String[] carNumber = request.getParameterValues("eliminar");
+        for (int i = 0; i < carNumber.length; i++) {
+            autoDao.deleteAuto(Integer.parseInt(carNumber[i]));
+        }
+    }
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -121,40 +127,46 @@
                 </div>
                 <div class="h-auto w-[60%] flex justify-start items-start bg-transparent shadow-xl rounded-3xl">
                     <div class="w-full p-10">
-                        <table class="table w-full">
-                            <thead class="bg-gray-800 text-white">
-                                <tr>
-                                    <th class="px-3 py-2">MARCA</th>
-                                    <th class="px-3 py-2">MODELO</th>
-                                    <th class="px-3 py-2">COLOR</th>
-                                    <th class="px-3 py-2">IMAGEN</th>
-                                    <th class="px-3 py-2">TIPO DE AUTO</th>
-                                    <th class="px-3 py-2">TRANSMISION</th>
-                                    <th class="px-3 py-2">CAPACIDAD</th>
-                                    <th class="px-3 py-2">TIPO DE COMBUSTIBLE</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <%
-                                    List<Auto> list = new ArrayList<>();
-                                    list = autoDao.getAutos();
-                                    for (int i = 0; i < list.size(); i++) {
+                        <form method="post">
+                            <table class="table w-full">
+                                <thead class="bg-gray-800 text-white">
+                                    <tr>
+                                        <th class="px-3 py-2"></th>
+                                        <th class="px-3 py-2">MARCA</th>
+                                        <th class="px-3 py-2">MODELO</th>
+                                        <th class="px-3 py-2">COLOR</th>
+                                        <th class="px-3 py-2">IMAGEN</th>
+                                        <th class="px-3 py-2">TIPO DE AUTO</th>
+                                        <th class="px-3 py-2">TRANSMISION</th>
+                                        <th class="px-3 py-2">CAPACIDAD</th>
+                                        <th class="px-3 py-2">TIPO DE COMBUSTIBLE</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <%
+                                        List<Auto> list = new ArrayList<>();
+                                        list = autoDao.getAutos();
+                                        for (int i = 0; i < list.size(); i++) {
                                             String tipo = autoDao.getTipoAuto(list.get(i).getId_tipo_auto());
-                                            out.print
-                                            (
-                                                "<tr><td class='px-3 py-2 border-b border-gray-300 shadow-md text-center'>" + list.get(i).getMarca() + "</td>" +
-                                                "<td class='px-3 py-2 border-b border-gray-300 shadow-md text-center'>" + list.get(i).getModelo()+ "</td>" +
-                                                "<td class='px-3 py-2 border-b border-gray-300 shadow-md text-center'>" + list.get(i).getColor()+ "</td>" +
-                                                "<td class='px-3 py-2 border-b border-gray-300 shadow-md text-center'><img src='" + list.get(i).getImagen()+ "' width='100px'/></td>" +
-                                                "<td class='px-3 py-2 border-b border-gray-300 shadow-md text-center'>" + tipo + "</td>" +
-                                                "<td class='px-3 py-2 border-b border-gray-300 shadow-md text-center'>" + list.get(i).getTransmision()+ "</td>" +
-                                                "<td class='px-3 py-2 border-b border-gray-300 shadow-md text-center'>" + list.get(i).getCapacidad()+ "</td>" +
-                                                "<td class='px-3 py-2 border-b border-gray-300 shadow-md text-center'>" + list.get(i).getTipo_combustible()+ "</td>"
+                                            out.print(
+                                                    "<tr><td class='px-3 py-2 border-b border-gray-300 shadow-md text-center'><input type=checkbox name='eliminar' value='" + list.get(i).getId_auto() + "' title='" + list.get(i).getId_auto() + "'></td>"
+                                                    + "<td class='px-3 py-2 border-b border-gray-300 shadow-md text-center'>" + list.get(i).getMarca() + "</td>"
+                                                    + "<td class='px-3 py-2 border-b border-gray-300 shadow-md text-center'>" + list.get(i).getModelo() + "</td>"
+                                                    + "<td class='px-3 py-2 border-b border-gray-300 shadow-md text-center'>" + list.get(i).getColor() + "</td>"
+                                                    + "<td class='px-3 py-2 border-b border-gray-300 shadow-md text-center'><img src='" + list.get(i).getImagen() + "' width='100px'/></td>"
+                                                    + "<td class='px-3 py-2 border-b border-gray-300 shadow-md text-center'>" + tipo + "</td>"
+                                                    + "<td class='px-3 py-2 border-b border-gray-300 shadow-md text-center'>" + list.get(i).getTransmision() + "</td>"
+                                                    + "<td class='px-3 py-2 border-b border-gray-300 shadow-md text-center'>" + list.get(i).getCapacidad() + "</td>"
+                                                    + "<td class='px-3 py-2 border-b border-gray-300 shadow-md text-center'>" + list.get(i).getTipo_combustible() + "</td>"
                                             );
                                         }
-                                %>
-                            </tbody>
-                        </table>
+                                    %>
+                                </tbody>
+                            </table>
+                            <div class="flex justify-end items-center">
+                                <button type="submit" name="delete" class="bg-red-400 text-white font-bold px-3 py-2 rounded-xl mt-5">Eliminar</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

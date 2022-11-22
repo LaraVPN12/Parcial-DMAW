@@ -1,3 +1,4 @@
+<%@page import="java.util.Date"%>
 <%@page import="Model.Usuario"%>
 <%@page import="ModelDAO.UsuarioDAO"%>
 <%@page import="java.util.ArrayList"%>
@@ -16,14 +17,14 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Home</title>
-        <script src="https://cdn.tailwindcss.com"></script>
+        <jsp:include page="admNav.jsp" flush="true" />
     </head>
     <body>
         <div class="flex justify-center items-center">
             <div class="w-[50%] h-auto flex justify-center items-center p-10">
                 <div class="w-full text-center h-auto bg-transparent  shadow-xl rounded-3xl p-10 ">
                     <div class="text-xl font-bold mb-5">
-                        Lista de Usuarios
+                        Lista de Alquileres Activos
                     </div>
                     <table class="table w-full">
                         <thead class="bg-gray-800 text-white">
@@ -40,7 +41,7 @@
                                 listUsuarios = usuarioDAO.getUsuarios();
                                 for (int i = 0; i < listUsuarios.size(); i++) {
                                     List<Alquiler> listAlquiler = new ArrayList<>();
-                                    listAlquiler = alquilerDAO.getAlquileresByUserId(listUsuarios.get(i).getId_usuario());
+                                    listAlquiler = alquilerDAO.getAlquileresActivosByUserId(listUsuarios.get(i).getId_usuario(), new Date());
                                     for (int j = 0; j < listAlquiler.size(); j++) {
                                         String nameAuto = autoDAO.getAutoName(listAlquiler.get(j).getId_auto());
                                         out.print(
