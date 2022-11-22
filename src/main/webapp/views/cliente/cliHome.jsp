@@ -10,24 +10,13 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Página Principal</title>
-        <script src="https://cdn.tailwindcss.com"></script>
+        <jsp:include page="cliNav.jsp" flush="true" />
     </head>
-    <%
-        if (session.getAttribute("admin").equals("true")) {
-    %>
-    <jsp:include page="admin/admNav.jsp" flush="true" />
-    <%
-    } else if (session.getAttribute("admin").equals("false")) {
-    %>
-    <jsp:include page="cliNav.jsp" flush="true" />
-    <%
-        }
-    %>
     <body>
         <!-- Principal -->
-        <div class="flex flex-col justify-center items-center">
+        <div class="flex flex-col justify-center items-center h-full">
             <!-- Heading -->
-            <div class="w-full h-[400px] flex justify-start items-center bg-cover bg-center"
+            <div class="w-full h-full flex justify-start items-center bg-cover bg-center"
                  style="background-image: url('../../images/background3.jpg'); background-repeat: no-repeat;">
                 <div class="w-auto h-auto p-10">
                     <div class="text-[50px] text-white font-bold">

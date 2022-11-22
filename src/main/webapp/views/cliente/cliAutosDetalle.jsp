@@ -8,16 +8,22 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="Model.Auto"%>
 <%@page import="java.util.List"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <%
+        Date now = new Date();
+        String fecha = new SimpleDateFormat("dd-MM-yyyy").format(now);
         List<Auto> list = new ArrayList<>();
         AutoDAO autoDAO = new AutoDAO();
-        if(request.getParameter("id") != null) {
-            int id_auto = Integer.parseInt(request.getParameter("id"));
-            list = autoDAO.getAutoById(id_auto);
+        int id_auto = 0;
+        if (request.getParameter("id") != null) {
+            id_auto = Integer.parseInt(request.getParameter("id"));
+            list = autoDAO.getAuto(id_auto);
         }
+        String tipo = autoDAO.getTipoAuto(list.get(0).getId_tipo_auto());
     %>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -26,7 +32,7 @@
                 out.print(list.get(0).getMarca() + " " + list.get(0).getModelo());
             %>
         </title>
-        <script src="https://cdn.tailwindcss.com"></script>
+        <jsp:include page="cliNav.jsp" flush="true" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
     </head>
     <body>
@@ -52,10 +58,33 @@
                         <div class="w-auto flex flex-col">
                             <div class="w-auto flex justify-between items-center mb-3">
                                 <div class="text-xl">
-                                    Precio desde
+                                    Precio
                                 </div>
                                 <div class="text-3xl font-bold">
-                                    8 USD/día
+                                    <%
+                                        int precio = 0;
+                                        switch (tipo) {
+                                            case "HATCHBACK":
+                                                precio = 25;
+                                                break;
+                                            case "SEDAN":
+                                                precio = 35;
+                                                break;
+                                            case "SUV":
+                                                precio = 35;
+                                                break;
+                                            case "CAMIONETA":
+                                                precio = 50;
+                                                break;
+                                            default:
+                                                throw new AssertionError();
+                                        }
+                                    %>
+                                    <span class="">
+                                        <%
+                                            out.print(Integer.toString(precio));
+                                        %> USD/día
+                                    </span>
                                 </div>
                             </div>
                             <div class="w-auto flex justify-start ietms-center mb-3">
@@ -80,7 +109,6 @@
                                                 </div>
                                                 <div>
                                                     <%
-                                                        String tipo = autoDAO.getTipoAuto(list.get(0).getId_tipo_auto());
                                                         out.print(tipo);
                                                     %>
                                                 </div>
@@ -163,34 +191,38 @@
             </div>
             <div class="w-[70%] flex flex-col justify-center items-start">
                 <div class="text-3xl mb-5">
-                    Rentar Ford Fiesta
+                    <span>RENTAR <%
+                        out.print(list.get(0).getMarca() + " " + list.get(0).getModelo());
+                        %></span>
                 </div>
-                <div class="h-auto w-full flex bg-gray-700 rounded-xl shadow-xl p-5">
-                    <div class="flex">
+                <div class="h-auto w-full flex bg-gray-700 rounded-xl shadow-xl p-5 justify-between items-center">
+                    <form method="" action="/Parcial-DMAW/AlquilerController">
+                        <div class="flex">
                         <!-- Item -->
                         <div class="flex flex-col mr-10">
                             <div class=" text-white">
                                 Fecha de Alquiler
                             </div>
-                            <div class="flex">
-                                <input class="w-auto rounded-md bg-slate-100 focus:outline-none px-3 py-2 mt-2 mr-1" type="date" name="date">
-                                <input class="w-auto rounded-md bg-slate-100 focus:outline-none px-3 py-2 mt-2" type="time" name="hour">
+                            <div class="flex items-center justify-center h-full">
+                                <span class="text-white">Hoy: <% out.print(fecha);%></span>
                             </div>
                         </div>
                         <!-- Item -->
                         <div class="flex flex-col mr-10">
                             <div class=" text-white">
-                                Fecha de Devolución
+                                Fecha de Devolución 
                             </div>
                             <div class="flex">
-                                <input class="w-auto rounded-md bg-slate-100 focus:outline-none px-3 py-2 mt-2 mr-1" type="date" name="date">
-                                <input class="w-auto rounded-md bg-slate-100 focus:outline-none px-3 py-2 mt-2" type="time" name="hour">
+                                <input class="w-auto rounded-md bg-slate-100 focus:outline-none px-3 py-2 mt-2 mr-1" type="date" name="fin_date" required>
                             </div>
-                        </div>
-                        <div class="flex justify-end items-end">
-                            <input class="py-2 px-10 bg-[#035771] font-bold text-white rounded-lg" type="submit" name="survey" value="Continuar">
+                            <input hidden="true" type="number" name="id_auto" value="<% out.print(id_auto); %>">
+                            <input hidden="true" type="text" name="precio" value="<% out.print(precio); %>">
                         </div>
                     </div>
+                    <div class="flex h-full">
+                        <input class="py-2 px-10 bg-[#035771] font-bold text-white rounded-lg" type="submit" name="action" value="Alquilar">
+                    </div>
+                    </form>
                 </div>
             </div>
         </div>

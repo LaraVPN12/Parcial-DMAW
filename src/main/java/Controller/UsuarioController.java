@@ -19,9 +19,9 @@ import javax.servlet.http.HttpSession;
 public class UsuarioController extends HttpServlet {
 
     String login = "views/login.jsp";
-    String home = "";
+    String home = "views/cliente/cliHome.jsp";
     String registerUsuario = "views/register.jsp";
-    String updateUsuario = "views/editUser.jsp";
+    String updateUsuario = "views/cliente/cliEditarUsuario.jsp";
     String deleteUsuario = "";
     Usuario usuario = new Usuario();
     UsuarioDAO dao = new UsuarioDAO();

@@ -10,6 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Administration</title>
+        <jsp:include page="admNav.jsp" flush="true" />
     </head>
     <body>
         <h1>Aquí se mostrarán todos los usuarios</h1>

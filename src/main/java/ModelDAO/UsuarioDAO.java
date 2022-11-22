@@ -34,6 +34,7 @@ public class UsuarioDAO implements IUsuarioCRUD{
                 usuario.setCorreo(user.getCorreo());
                 usuario.setContra(user.getContra());
                 usuario.setAdmin(rs.getBoolean("admin"));
+                usuario.setHasrented(rs.getBoolean("hasRented"));
                 list.add(usuario);
             }
         } catch (Exception e) {
@@ -58,6 +59,7 @@ public class UsuarioDAO implements IUsuarioCRUD{
                 usuario.setCorreo(rs.getString("correo"));
                 usuario.setContra(rs.getString("contra"));
                 usuario.setAdmin(rs.getBoolean("admin"));
+                usuario.setHasrented(rs.getBoolean("hasRented"));
                 list.add(usuario);
             }
         } catch (Exception e) {
@@ -110,5 +112,18 @@ public class UsuarioDAO implements IUsuarioCRUD{
     @Override
     public boolean deleteUsuario(int id_usuario) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public boolean updateHasRentedTrue(int id_usuario) {
+        String sql = "UPDATE usuario SET hasrented=true WHERE id_usuario ='"+id_usuario+"' ";
+        try {
+            conn = cn.getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.executeUpdate();
+            return true;
+        }catch(Exception e) {
+            
+        }
+        return false;
     }
 }
