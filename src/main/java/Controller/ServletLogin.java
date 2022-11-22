@@ -5,8 +5,11 @@ import Model.Usuario;
 import ModelDAO.UsuarioDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -75,6 +78,9 @@ public class ServletLogin extends HttpServlet {
                     session.setAttribute("apellido", userIterator.getApellido());
                     session.setAttribute("admin", userIterator.getAdmin().toString());
                     session.setAttribute("id_usuario", userIterator.getId_usuario());
+                    if (dao.updateHasRentedFalse(userIterator.getId_usuario())) {
+                        userIterator.setHasrented(false);
+                    }
                     session.setAttribute("hasrented", userIterator.getHasrented().toString());
 //                    response.sendRedirect("principal.jsp");
                     if (userIterator.getAdmin()) {
@@ -84,7 +90,8 @@ public class ServletLogin extends HttpServlet {
                     }
                 }
             }
-            
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(ServletLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

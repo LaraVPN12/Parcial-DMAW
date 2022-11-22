@@ -8,6 +8,7 @@
 /home/deuseli/NetBeansProjects/Parcial-DMAW/src/main/java/com/mycompany/sistemaalquiler/resources/JavaEE8Resource.java
 /home/deuseli/NetBeansProjects/Parcial-DMAW/src/main/java/Model/Auto.java
 /home/deuseli/NetBeansProjects/Parcial-DMAW/src/main/java/Interface/IAlquilerCRUD.java
+/home/deuseli/NetBeansProjects/Parcial-DMAW/src/main/java/Controller/AlquilerController.java
 /home/deuseli/NetBeansProjects/Parcial-DMAW/src/main/java/DB/Connect.java
 /home/deuseli/NetBeansProjects/Parcial-DMAW/src/main/java/ModelDAO/AutoDAO.java
 /home/deuseli/NetBeansProjects/Parcial-DMAW/src/main/java/Interface/IAutoCRUD.java

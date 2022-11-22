@@ -189,42 +189,54 @@
                     </div>
                 </div>
             </div>
+            <%
+                if (session.getAttribute("hasrented").equals("true")) {
+            %>
+
+            <%
+            } else {
+            %>
             <div class="w-[70%] flex flex-col justify-center items-start">
                 <div class="text-3xl mb-5">
                     <span>RENTAR <%
                         out.print(list.get(0).getMarca() + " " + list.get(0).getModelo());
                         %></span>
                 </div>
-                <div class="h-auto w-full flex bg-gray-700 rounded-xl shadow-xl p-5 justify-between items-center">
-                    <form method="" action="/Parcial-DMAW/AlquilerController">
-                        <div class="flex">
-                        <!-- Item -->
-                        <div class="flex flex-col mr-10">
-                            <div class=" text-white">
-                                Fecha de Alquiler
-                            </div>
-                            <div class="flex items-center justify-center h-full">
-                                <span class="text-white">Hoy: <% out.print(fecha);%></span>
-                            </div>
-                        </div>
-                        <!-- Item -->
-                        <div class="flex flex-col mr-10">
-                            <div class=" text-white">
-                                Fecha de Devolución 
-                            </div>
+                <div class="h-auto w-full flex bg-gray-700 rounded-xl shadow-xl p-5">
+                    <form method="" action="/Parcial-DMAW/AlquilerController" class="w-full">
+                        <div class="flex h-auto w-full justify-between items-center">
                             <div class="flex">
-                                <input class="w-auto rounded-md bg-slate-100 focus:outline-none px-3 py-2 mt-2 mr-1" type="date" name="fin_date" required>
+                            <!-- Item -->
+                            <div class="flex flex-col mr-10">
+                                <div class=" text-white">
+                                    Fecha de Alquiler
+                                </div>
+                                <div class="flex items-center justify-center h-full">
+                                    <span class="text-white">Hoy: <% out.print(fecha);%></span>
+                                </div>
                             </div>
-                            <input hidden="true" type="number" name="id_auto" value="<% out.print(id_auto); %>">
-                            <input hidden="true" type="text" name="precio" value="<% out.print(precio); %>">
+                            <!-- Item -->
+                            <div class="flex flex-col mr-10">
+                                <div class=" text-white">
+                                    Fecha de Devolución 
+                                </div>
+                                <div class="flex">
+                                    <input class="w-auto rounded-md bg-slate-100 focus:outline-none px-3 py-2 mt-2 mr-1" type="date" name="fin_date" required>
+                                </div>
+                                <input hidden="true" type="number" name="id_auto" value="<% out.print(id_auto); %>">
+                                <input hidden="true" type="text" name="precio" value="<% out.print(precio);%>">
+                            </div>
                         </div>
-                    </div>
-                    <div class="flex h-full">
-                        <input class="py-2 px-10 bg-[#035771] font-bold text-white rounded-lg" type="submit" name="action" value="Alquilar">
-                    </div>
+                        <div class="flex h-full">
+                            <input class="py-2 px-10 bg-[#035771] font-bold text-white rounded-lg" type="submit" name="action" value="Alquilar">
+                        </div>
+                        </div>  
                     </form>
                 </div>
             </div>
+            <%
+                }
+            %>
         </div>
     </body>
 </html>

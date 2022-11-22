@@ -1,4 +1,3 @@
-
 package ModelDAO;
 
 import DB.Connect;
@@ -7,10 +6,13 @@ import Model.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 
-public class UsuarioDAO implements IUsuarioCRUD{
+public class UsuarioDAO implements IUsuarioCRUD {
+
     Connect cn = new Connect();
     Connection conn;
     PreparedStatement ps;
@@ -38,11 +40,11 @@ public class UsuarioDAO implements IUsuarioCRUD{
                 list.add(usuario);
             }
         } catch (Exception e) {
-            
+
         }
         return list;
     }
-    
+
     @Override
     public List<Usuario> getUsuarios() {
         ArrayList<Usuario> list = new ArrayList<>();
@@ -63,7 +65,7 @@ public class UsuarioDAO implements IUsuarioCRUD{
                 list.add(usuario);
             }
         } catch (Exception e) {
-            
+
         }
         return list;
     }
@@ -85,7 +87,7 @@ public class UsuarioDAO implements IUsuarioCRUD{
             ps.setString(4, usuario.getContra());
             ps.executeUpdate();
             return true;
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
@@ -93,7 +95,7 @@ public class UsuarioDAO implements IUsuarioCRUD{
 
     @Override
     public boolean updateUsuario(Usuario usuario) {
-        String sql = "UPDATE usuario SET nombre=?, apellido=?, correo=?, contra=? WHERE id_usuario ='"+usuario.getId_usuario()+"' ";
+        String sql = "UPDATE usuario SET nombre=?, apellido=?, correo=?, contra=? WHERE id_usuario ='" + usuario.getId_usuario() + "' ";
         try {
             conn = cn.getConnection();
             ps = conn.prepareStatement(sql);
@@ -103,8 +105,8 @@ public class UsuarioDAO implements IUsuarioCRUD{
             ps.setString(4, usuario.getContra());
             ps.executeUpdate();
             return true;
-        }catch(Exception e) {
-            
+        } catch (Exception e) {
+
         }
         return false;
     }
@@ -113,17 +115,20 @@ public class UsuarioDAO implements IUsuarioCRUD{
     public boolean deleteUsuario(int id_usuario) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    public boolean updateHasRentedTrue(int id_usuario) {
-        String sql = "UPDATE usuario SET hasrented=true WHERE id_usuario ='"+id_usuario+"' ";
-        try {
-            conn = cn.getConnection();
-            ps = conn.prepareStatement(sql);
-            ps.executeUpdate();
-            return true;
-        }catch(Exception e) {
-            
-        }
-        return false;
+
+    public boolean updateHasRentedTrue(int id_usuario) throws ClassNotFoundException, SQLException {
+        String sql = "UPDATE usuario SET hasrented=true WHERE id_usuario ='" + id_usuario + "' ";
+        conn = cn.getConnection();
+        ps = conn.prepareStatement(sql);
+        ps.executeUpdate();
+        return true;
+    }
+
+    public boolean updateHasRentedFalse(int id_usuario) throws ClassNotFoundException, SQLException {
+        String sql = "UPDATE usuario SET hasrented=false WHERE (SELECT MAX(fecha_fin) FROM alquiler WHERE id_usuario = '" + id_usuario + "') < '" + new Date() + "'";
+        conn = cn.getConnection();
+        ps = conn.prepareStatement(sql);
+        ps.executeUpdate();
+        return true;
     }
 }
