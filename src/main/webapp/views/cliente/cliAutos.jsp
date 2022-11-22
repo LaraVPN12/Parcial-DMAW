@@ -14,20 +14,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Autos</title>
-        <script src="https://cdn.tailwindcss.com"></script>
+        <jsp:include page="cliNav.jsp" flush="true" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
     </head>
-    <%
-        if (session.getAttribute("admin").equals("true")) {
-    %>
-    <jsp:include page="admin/admNav.jsp" flush="true" />
-    <%
-    } else if (session.getAttribute("admin").equals("false")) {
-    %>
-    <jsp:include page="cliNav.jsp" flush="true" />
-    <%
-        }
-    %>
     <body>
         <%
             List<Auto> list = new ArrayList<>();
@@ -109,20 +98,43 @@
                                     PRECIO DESDE
                                 </div>
                                 <div class="text-4xl font-bold">
-                                    8 USD
+                                    <%
+                                        int precio = 0;
+                                        switch (tipo) {
+                                            case "HATCHBACK":
+                                                precio = 8;
+                                                break;
+                                            case "SEDAN":
+                                                precio = 7;
+                                                break;
+                                            case "SUV":
+                                                precio = 9;
+                                                break;
+                                            case "CAMIONETA":
+                                                precio = 10;
+                                                break;
+                                            default:
+                                                throw new AssertionError();
+                                        }
+                                    %>
+                                    <span class="">
+                                        <%
+                                        out.print(Integer.toString(precio));
+                                        %> USD/día
+                                    </span>
                                 </div>
                             </div>
                             <div class="w-full flex flex-col">
                                 <div class="w-auto flex justify-between items-center mb-3">
                                     <div class="font-bold">
-                                        Deposito
+                                        Depósito
                                     </div>
                                     <div>
                                         100 USD
                                     </div>
                                 </div>
                                 <div class="">
-                                    <a href="cliAutosDetalle.jsp?id=<%out.print(list.get(i).getId_auto());%>"><div class="py-2 flex justify-center items-center w-full bg-[#035771] font-bold text-white rounded-lg">Rentar</div></a>
+                                    <a href="cliAutosDetalle.jsp?id=<%out.print(list.get(i).getId_auto());%>"><div class="py-2 flex justify-center items-center w-full bg-[#035771] font-bold text-white rounded-lg">Ver detalles</div></a>
                                 </div>
                             </div>
                         </div>

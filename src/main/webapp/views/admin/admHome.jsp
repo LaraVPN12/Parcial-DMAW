@@ -10,6 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Aministration</title>
+        <jsp:include page="admNav.jsp" flush="true" />
     </head>
     <body>
         <h1>Será el Home del administrador | Aquí se me ocurre mostrar la tabla de alquileres efectuados</h1>

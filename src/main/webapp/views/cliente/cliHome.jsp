@@ -10,19 +10,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Página Principal</title>
-        <script src="https://cdn.tailwindcss.com"></script>
+        <jsp:include page="cliNav.jsp" flush="true" />
     </head>
-    <%
-        if (session.getAttribute("admin").equals("true")) {
-    %>
-    <jsp:include page="admin/admNav.jsp" flush="true" />
-    <%
-    } else if (session.getAttribute("admin").equals("false")) {
-    %>
-    <jsp:include page="cliNav.jsp" flush="true" />
-    <%
-        }
-    %>
     <body>
         <!-- Principal -->
         <div class="flex flex-col justify-center items-center">
