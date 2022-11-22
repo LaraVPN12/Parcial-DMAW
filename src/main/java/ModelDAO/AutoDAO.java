@@ -54,7 +54,7 @@ public class AutoDAO implements IAutoCRUD {
             conn = cn.getConnection();
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 response += rs.getString("tipo");
             }
         } catch (Exception e) {
@@ -62,7 +62,7 @@ public class AutoDAO implements IAutoCRUD {
         }
         return response;
     }
-    
+
     public Boolean updateEveryIsRented(int id_auto) throws ClassNotFoundException, SQLException {
         String sql = "UPDATE auto SET isrented=false WHERE (SELECT MAX(fecha_fin) FROM alquiler WHERE id_auto = '" + id_auto + "') < '" + new Date() + "'";
         conn = cn.getConnection();
@@ -74,12 +74,12 @@ public class AutoDAO implements IAutoCRUD {
     @Override
     public List getAuto(int id_auto) {
         List<Auto> list = new ArrayList<>();
-        String sql = "SELECT * FROM auto WHERE id_auto = '"+id_auto+"'";
-        try{
+        String sql = "SELECT * FROM auto WHERE id_auto = '" + id_auto + "'";
+        try {
             conn = cn.getConnection();
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 Auto auto = new Auto();
                 auto.setId_auto(rs.getInt("id_auto"));
                 auto.setMarca(rs.getString("marca"));
@@ -93,15 +93,15 @@ public class AutoDAO implements IAutoCRUD {
                 auto.setIsrented(rs.getBoolean("isrented"));
                 list.add(auto);
             }
-        }catch(Exception e) {
-            
+        } catch (Exception e) {
+
         }
         return list;
     }
 
     @Override
     public boolean addAuto(Auto auto) throws ClassNotFoundException, SQLException {
-        String sql = "INSERT INTO auto (marca, modelo, color, imagen, id_tipo_auto, transmision, capacidad, tipo_combustible) VALUES(?, ?, ?, ?, '"+auto.getId_tipo_auto()+"', ?, '"+auto.getCapacidad()+"', ?)";
+        String sql = "INSERT INTO auto (marca, modelo, color, imagen, id_tipo_auto, transmision, capacidad, tipo_combustible) VALUES(?, ?, ?, ?, '" + auto.getId_tipo_auto() + "', ?, '" + auto.getCapacidad() + "', ?)";
         conn = cn.getConnection();
         ps = conn.prepareStatement(sql);
         ps.setString(1, auto.getMarca().toUpperCase());
@@ -123,34 +123,35 @@ public class AutoDAO implements IAutoCRUD {
     public boolean deleteAuto(int id_auto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    public boolean updateIsRented(int id_auto, Boolean isrented) {
-        String sql = "UPDATE auto SET isrented=? WHERE id_usuario ='"+id_auto+"'";
-        try {
-            conn = cn.getConnection();
-            ps = conn.prepareStatement(sql);
-            ps.setBoolean(1, isrented);
-            ps.executeUpdate();
-            return true;
-        }catch(Exception e) {
-            
-        }
-        return false;
+
+    public boolean updateIsRented(int id_auto) throws ClassNotFoundException, SQLException {
+        String sql = "UPDATE auto SET isrented=false WHERE (SELECT MAX(fecha_fin) FROM alquiler WHERE id_auto = '" + id_auto + "') < '" + new Date() + "' AND id_auto = '" + id_auto + "'";
+        conn = cn.getConnection();
+        ps = conn.prepareStatement(sql);
+        ps.executeUpdate();
+        return true;
     }
     
-   
+    public boolean updateIsRentedTrue(int id_auto) throws ClassNotFoundException, SQLException {
+        String sql = "UPDATE auto SET isrented=true WHERE id_auto = '" + id_auto + "'";
+        conn = cn.getConnection();
+        ps = conn.prepareStatement(sql);
+        ps.executeUpdate();
+        return true;
+    }
+    
     public String getAutoName(int id_auto) {
-        String sql = "SELECT concat(marca, ' ', modelo) FROM auto WHERE id_auto = '"+id_auto+"'";
+        String sql = "SELECT concat(marca, ' ', modelo) FROM auto WHERE id_auto = '" + id_auto + "'";
         String name = "";
         try {
             conn = cn.getConnection();
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                name = rs.getString("concat"); 
+                name = rs.getString("concat");
             }
-        }catch(Exception e) {
-            
+        } catch (Exception e) {
+
         }
         return name;
     }

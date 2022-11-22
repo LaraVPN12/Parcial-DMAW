@@ -28,7 +28,6 @@
                             Apellido
                         </div>
                         <input class="w-full rounded-md focus:outline-none px-3 py-2 mt-2 mb-3" type="text" name="apellido">
-                        <small><span>Opcional</span></small>
                         <!-- Correo -->
                         <div class="font-bold text-lg mr-3">
                             Correo

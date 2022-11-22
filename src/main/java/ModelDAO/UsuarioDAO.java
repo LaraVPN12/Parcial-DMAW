@@ -129,7 +129,7 @@ public class UsuarioDAO implements IUsuarioCRUD {
     }
 
     public boolean updateHasRentedFalse(int id_usuario) throws ClassNotFoundException, SQLException {
-        String sql = "UPDATE usuario SET hasrented=false WHERE (SELECT MAX(fecha_fin) FROM alquiler WHERE id_usuario = '" + id_usuario + "') < '" + new Date() + "'";
+        String sql = "UPDATE usuario SET hasrented=false WHERE (SELECT MAX(fecha_fin) FROM alquiler WHERE id_usuario = '" + id_usuario + "') < '" + new Date() + "' AND id_usuario = '" + id_usuario + "'";
         conn = cn.getConnection();
         ps = conn.prepareStatement(sql);
         ps.executeUpdate();

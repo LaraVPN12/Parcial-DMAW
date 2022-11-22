@@ -16,7 +16,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Home</title>
-        <script src="https://cdn.tailwindcss.com"></script>
+        <jsp:include page="admNav.jsp" flush="true" />
     </head>
     <body>
         <div class="flex justify-center items-center">

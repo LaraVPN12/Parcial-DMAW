@@ -2,6 +2,7 @@ package Controller;
 
 import Model.Alquiler;
 import ModelDAO.AlquilerDAO;
+import ModelDAO.AutoDAO;
 import ModelDAO.UsuarioDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -27,6 +28,7 @@ public class AlquilerController extends HttpServlet {
 
     AlquilerDAO alquilerDAO = new AlquilerDAO();
     UsuarioDAO usuarioDAO = new UsuarioDAO();
+    AutoDAO autoDAO = new AutoDAO();
     Alquiler alquiler = new Alquiler();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -71,20 +73,12 @@ public class AlquilerController extends HttpServlet {
                 alquiler.setFecha_inicio(new Date());
                 alquiler.setFecha_fin(fecha_fin);
                 alquiler.setTotal(total);
-                
-            {
-                try {
-                    alquilerDAO.addAlquiler(alquiler);
-                } catch (ClassNotFoundException | SQLException ex) {
-                    Logger.getLogger(AlquilerController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-                
 
                 try {
                     alquilerDAO.addAlquiler(alquiler);
                     usuarioDAO.updateHasRentedTrue(Integer.parseInt(session.getAttribute("id_usuario").toString()));
                     session.setAttribute("hasrented", "true");
+                    autoDAO.updateIsRentedTrue(id_auto);
                 } catch (ClassNotFoundException | SQLException ex) {
                     Logger.getLogger(AlquilerController.class.getName()).log(Level.SEVERE, null, ex);
                 }
