@@ -2,8 +2,10 @@ package Controller;
 
 import Model.Alquiler;
 import ModelDAO.AlquilerDAO;
+import ModelDAO.UsuarioDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import javax.servlet.ServletException;
@@ -24,6 +26,7 @@ import javax.servlet.http.HttpSession;
 public class AlquilerController extends HttpServlet {
 
     AlquilerDAO alquilerDAO = new AlquilerDAO();
+    UsuarioDAO usuarioDAO = new UsuarioDAO();
     Alquiler alquiler = new Alquiler();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -60,8 +63,8 @@ public class AlquilerController extends HttpServlet {
                 int id_auto = Integer.parseInt(request.getParameter("id_auto"));
                 double precio = Double.parseDouble(request.getParameter("precio").trim());
                 int miliseconds = 86400000;
-                int days = (int) ((fecha_fin.getTime() - new Date().getTime())/miliseconds+1);
-                double total = 100+days*precio;
+                int days = (int) ((fecha_fin.getTime() - new Date().getTime()) / miliseconds + 1);
+                double total = 100 + days * precio;
 
                 alquiler.setId_auto(id_auto);
                 alquiler.setId_usuario(Integer.parseInt(session.getAttribute("id_usuario").toString()));
@@ -69,10 +72,25 @@ public class AlquilerController extends HttpServlet {
                 alquiler.setFecha_fin(fecha_fin);
                 alquiler.setTotal(total);
                 
-                alquilerDAO.addAlquiler(alquiler);
+            {
+                try {
+                    alquilerDAO.addAlquiler(alquiler);
+                } catch (ClassNotFoundException | SQLException ex) {
+                    Logger.getLogger(AlquilerController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
                 
+
+                try {
+                    alquilerDAO.addAlquiler(alquiler);
+                    usuarioDAO.updateHasRentedTrue(Integer.parseInt(session.getAttribute("id_usuario").toString()));
+                    session.setAttribute("hasrented", "true");
+                } catch (ClassNotFoundException | SQLException ex) {
+                    Logger.getLogger(AlquilerController.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 response.sendRedirect("/Parcial-DMAW/views/cliente/cliHistorial.jsp");
                 break;
+
             default:
                 throw new AssertionError();
         }

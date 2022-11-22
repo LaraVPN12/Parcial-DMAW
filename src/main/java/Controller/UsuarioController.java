@@ -10,6 +10,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.crypto.spec.SecretKeySpec;
+import javax.crypto.Cipher;
+import java.security.MessageDigest;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -62,9 +68,16 @@ public class UsuarioController extends HttpServlet {
                 usuario.setCorreo(correo);
                 usuario.setContra(contra);
 
-                dao.addUsuario(usuario);
-                access = home;
+                 {
+                    try {
+                        dao.addUsuario(usuario);
+                    } catch (ClassNotFoundException | SQLException ex) {
+                        Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                access = "";
                 break;
+
             case "registration":
                 access = registerUsuario;
                 break;
@@ -102,6 +115,22 @@ public class UsuarioController extends HttpServlet {
 
     }
 
+//    private String encryptPassword(String password, String email) throws Exception {
+//        SecretKeySpec secretKey = generateKey(email);
+//        Cipher cipher = Cipher.getInstance("AES");
+//        cipher.init(Cipher.ENCRYPT_MODE, secretKey);
+//        byte[] passwordBytes = password.getBytes("UTF-8");
+//        byte[] passwordEncrypted = cipher.doFinal(passwordBytes);
+//        String passwordEncryptedString = Base64.encode(passwordEncrypted);
+//    }
+//
+//    private SecretKeySpec generateKey(String password) throws Exception {
+//        MessageDigest code = MessageDigest.getInstance("SHA-256");
+//        byte[] key = password.getBytes("UTF-8");
+//        key = code.digest(key);
+//        SecretKeySpec secretKey = new SecretKeySpec(key, "AES");
+//        return secretKey;
+//    }
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
