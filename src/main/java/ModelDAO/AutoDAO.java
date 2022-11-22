@@ -6,7 +6,9 @@ import Model.Auto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class AutoDAO implements IAutoCRUD {
@@ -35,36 +37,11 @@ public class AutoDAO implements IAutoCRUD {
                 auto.setTransmision(rs.getString("transmision"));
                 auto.setCapacidad(rs.getInt("capacidad"));
                 auto.setTipo_combustible(rs.getString("tipo_combustible"));
+                auto.setIsrented(rs.getBoolean("isrented"));
                 list.add(auto);
             }
         } catch (Exception e) {
 
-        }
-        return list;
-    }
-    
-    public List getAutoById(int id) {
-        List<Auto> list = new ArrayList<>();
-        String sql = "SELECT * FROM auto WHERE id_auto = '"+id+"'";
-        try{
-            conn = cn.getConnection();
-            ps = conn.prepareStatement(sql);
-            rs = ps.executeQuery();
-            while(rs.next()) {
-                Auto auto = new Auto();
-                auto.setId_auto(rs.getInt("id_auto"));
-                auto.setMarca(rs.getString("marca"));
-                auto.setModelo(rs.getString("modelo"));
-                auto.setColor(rs.getString("color"));
-                auto.setImagen(rs.getString("imagen"));
-                auto.setId_tipo_auto(rs.getInt("id_tipo_auto"));
-                auto.setTransmision(rs.getString("transmision"));
-                auto.setCapacidad(rs.getInt("capacidad"));
-                auto.setTipo_combustible(rs.getString("tipo_combustible"));
-                list.add(auto);
-            }
-        }catch(Exception e) {
-            
         }
         return list;
     }
@@ -84,10 +61,50 @@ public class AutoDAO implements IAutoCRUD {
         }
         return response;
     }
+    
+//    public Boolean updateEveryIsRented() {
+//        Date now = new Date();
+//        String fecha = new SimpleDateFormat("dd-MM-yyyy").format(now);
+//        String sql1 = "SELECT * FROM alquiler WHERE fecha_fin < '" + fecha + "'";
+//        try {
+//            conn = cn.getConnection();
+//            ps = conn.prepareStatement(sql1);
+//            rs = ps.executeQuery();
+//            while (rs.next()) {
+//                
+//            }
+//        } catch (Exception e) {
+//        }
+//            
+//        String sql2 = "UPDATE auto SET isrented = false WHERE fecha_fin";
+//    }
 
     @Override
-    public Auto getAuto(int id_auto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List getAuto(int id_auto) {
+        List<Auto> list = new ArrayList<>();
+        String sql = "SELECT * FROM auto WHERE id_auto = '"+id_auto+"'";
+        try{
+            conn = cn.getConnection();
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while(rs.next()) {
+                Auto auto = new Auto();
+                auto.setId_auto(rs.getInt("id_auto"));
+                auto.setMarca(rs.getString("marca"));
+                auto.setModelo(rs.getString("modelo"));
+                auto.setColor(rs.getString("color"));
+                auto.setImagen(rs.getString("imagen"));
+                auto.setId_tipo_auto(rs.getInt("id_tipo_auto"));
+                auto.setTransmision(rs.getString("transmision"));
+                auto.setCapacidad(rs.getInt("capacidad"));
+                auto.setTipo_combustible(rs.getString("tipo_combustible"));
+                auto.setIsrented(rs.getBoolean("isrented"));
+                list.add(auto);
+            }
+        }catch(Exception e) {
+            
+        }
+        return list;
     }
 
     @Override
@@ -106,7 +123,7 @@ public class AutoDAO implements IAutoCRUD {
     }
     
     public boolean updateIsRented(int id_auto, Boolean isrented) {
-        String sql = "UPDATE auto SET isrented=? WHERE id_usuario ='"+id_auto+"' ";
+        String sql = "UPDATE auto SET isrented=? WHERE id_usuario ='"+id_auto+"'";
         try {
             conn = cn.getConnection();
             ps = conn.prepareStatement(sql);
@@ -117,5 +134,21 @@ public class AutoDAO implements IAutoCRUD {
             
         }
         return false;
+    }
+    
+    public String getAutoName(int id_auto) {
+        String sql = "SELECT concat(marca, ' ', modelo) FROM auto WHERE id_auto = '"+id_auto+"'";
+        String name = "";
+        try {
+            conn = cn.getConnection();
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                name = rs.getString("concat"); 
+            }
+        }catch(Exception e) {
+            
+        }
+        return name;
     }
 }

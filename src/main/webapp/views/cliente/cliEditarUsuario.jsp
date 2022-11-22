@@ -22,14 +22,13 @@
                         <div class="font-bold text-lg mr-3">
                             Nombre
                         </div>
-                        <input class="w-full rounded-md focus:outline-none px-3 py-2 mt-2 mb-3" type="text" name="nombre" value="<% out.print(session.getAttribute("nombre")); %>" required="">
+                        <input class="w-full rounded-md focus:outline-none px-3 py-2 mt-2 mb-3" type="text" name="nombre" value="<% out.print(session.getAttribute("nombre")); %>" required>
                         <!-- Apellido -->
                         <div class="font-bold text-lg mr-3">
                             Apellido
                         </div>
-                        <input class="w-full rounded-md focus:outline-none px-3 py-2 mt-2" type="text" name="apellido" value="<% out.print(session.getAttribute("apellido")); %>">
+                        <input class="w-full rounded-md focus:outline-none px-3 py-2 mt-2" type="text" name="apellido" value="<% out.print(session.getAttribute("apellido")); %>" required>
                         <div class="mb-3">
-                            <small><span class="text-blue-700 italic">* Opcional</span></small>
                         </div>
                         <!-- Correo -->
                         <div class="font-bold text-lg mr-3">

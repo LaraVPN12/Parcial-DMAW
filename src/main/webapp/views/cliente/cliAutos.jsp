@@ -102,16 +102,16 @@
                                         int precio = 0;
                                         switch (tipo) {
                                             case "HATCHBACK":
-                                                precio = 8;
+                                                precio = 25;
                                                 break;
                                             case "SEDAN":
-                                                precio = 7;
+                                                precio = 35;
                                                 break;
                                             case "SUV":
-                                                precio = 9;
+                                                precio = 35;
                                                 break;
                                             case "CAMIONETA":
-                                                precio = 10;
+                                                precio = 50;
                                                 break;
                                             default:
                                                 throw new AssertionError();

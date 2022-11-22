@@ -114,12 +114,11 @@ public class UsuarioDAO implements IUsuarioCRUD{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    public boolean updateHasRented(int id_usuario, Boolean hasrented) {
-        String sql = "UPDATE usuario SET hasrented=? WHERE id_usuario ='"+id_usuario+"' ";
+    public boolean updateHasRentedTrue(int id_usuario) {
+        String sql = "UPDATE usuario SET hasrented=true WHERE id_usuario ='"+id_usuario+"' ";
         try {
             conn = cn.getConnection();
             ps = conn.prepareStatement(sql);
-            ps.setBoolean(1, hasrented);
             ps.executeUpdate();
             return true;
         }catch(Exception e) {
