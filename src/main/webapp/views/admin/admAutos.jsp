@@ -18,7 +18,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Autos - Administrador</title>
         <jsp:include page="admNav.jsp" flush="true" />
-        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
     </head>
     <body>
         <div class="w-full h-auto flex justify-center items-center p-10">
@@ -139,7 +139,8 @@
                                         <th class="px-3 py-2">TIPO DE AUTO</th>
                                         <th class="px-3 py-2">TRANSMISION</th>
                                         <th class="px-3 py-2">CAPACIDAD</th>
-                                        <th class="px-3 py-2">TIPO DE COMBUSTIBLE</th>
+                                        <th class="px-3 py-2">TIPO DE COMBUSTIBLE</th> 
+                                        <th class="px-3 py-2"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -158,6 +159,7 @@
                                                     + "<td class='px-3 py-2 border-b border-gray-300 shadow-md text-center'>" + list.get(i).getTransmision() + "</td>"
                                                     + "<td class='px-3 py-2 border-b border-gray-300 shadow-md text-center'>" + list.get(i).getCapacidad() + "</td>"
                                                     + "<td class='px-3 py-2 border-b border-gray-300 shadow-md text-center'>" + list.get(i).getTipo_combustible() + "</td>"
+                                                    + "<td class='px-3 py-2 border-b border-gray-300 shadow-md text-center'><a href=editCar.jsp?id'"+list.get(i).getId_auto()+"'><div class='text-gray-500'><i class='bi bi-box-arrow-in-down-left'></i></div></a></td>"
                                             );
                                         }
                                     %>

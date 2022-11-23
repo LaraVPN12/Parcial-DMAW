@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 public class AutoController extends HttpServlet {
     Auto auto = new Auto();
     AutoDAO autoDAO = new AutoDAO();
+    String access = "";
     
 
 
@@ -86,13 +87,13 @@ public class AutoController extends HttpServlet {
                     Logger.getLogger(AutoController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-                
+                access = "views/admin/admAutos.jsp";
                 break;
-                default:
-                throw new AssertionError();
-
+            case "update":
+                access = "views/admin/editCar.jsp";
+                break;
             }
-        response.sendRedirect("views/admin/admAutos.jsp");
+        response.sendRedirect(access);
     }
 
     @Override
