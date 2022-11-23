@@ -16,7 +16,7 @@
                         <li><a class="inline-block no-underline hover:text-black font-semibold text-lg py-2 px-4 lg:-ml-2" href="/Parcial-DMAW/views/admin/admHome.jsp">Página Principal</a></li>
                         <li><a class="inline-block no-underline hover:text-black font-semibold text-lg py-2 px-4 lg:-ml-2" href="/Parcial-DMAW/views/admin/admUsuarios.jsp">Usuarios</a></li>
                         <li><a class="inline-block no-underline hover:text-black font-semibold text-lg py-2 px-4 lg:-ml-2" href="/Parcial-DMAW/views/admin/admAutos.jsp">Autos</a></li>
-                        <li><a class="inline-block no-underline hover:text-black font-semibold text-lg py-2 px-4 lg:-ml-2" href="/Parcial-DMAW/views/admin/admAutos.jsp">Historial de Alquileres</a></li>
+                        <li><a class="inline-block no-underline hover:text-black font-semibold text-lg py-2 px-4 lg:-ml-2" href="/Parcial-DMAW/views/admin/admHistorial.jsp">Historial de Alquileres</a></li>
                     </div>
                     <li>
                         <div class="px-2 py-1 rounded-md bg-red-400"><a class="no-underline font-bold" href="/Parcial-DMAW/ServletCerrarSesion">Cerrar Sesión</a></div>

@@ -48,7 +48,7 @@ public class AlquilerDAO implements IAlquilerCRUD {
     
     public List getAlquileresByUserId(int id_usuario) {
         ArrayList<Alquiler> list = new ArrayList<>();
-        String sql = "SELECT * FROM alquiler WHERE id_usuario = '" + id_usuario + "' ORDER BY fecha_fin DESC";
+        String sql = "SELECT * FROM alquiler WHERE id_usuario = '" + id_usuario + "' ORDER BY fecha_fin ASC";
         try {
             conn = cn.getConnection();
             ps = conn.prepareStatement(sql);
@@ -69,19 +69,35 @@ public class AlquilerDAO implements IAlquilerCRUD {
         return list;
     }
     
-    public Boolean deleteAlquileresByUsuario(int id_usuario) {
-        Date now = new Date();
-        String fecha = new SimpleDateFormat("yyyy-MM-dd").format(now);
-        String sql = "DELETE * FROM alquiler WHERE id_usuario = '" + id_usuario + "' AND fecha_fin < ?";
+    public Boolean deleteAlquileresByUsuario(int id_usuario) throws ClassNotFoundException, SQLException {
+        String sql = "DELETE FROM alquiler WHERE id_usuario = '" + id_usuario + "' AND fecha_fin < '"+ new Date() +"'";
+            conn = cn.getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.executeUpdate();
+            return true;
+    }
+    
+    public List getAlquileresActivosByUserId(int id_usuario, Date fecha) {
+        ArrayList<Alquiler> list = new ArrayList<>();
+        String sql = "SELECT * FROM alquiler WHERE id_usuario = '" + id_usuario + "' AND fecha_fin >= '"+fecha+"'  ORDER BY fecha_fin DESC";
         try {
             conn = cn.getConnection();
             ps = conn.prepareStatement(sql);
-            ps.setString(1, fecha);
-            ps.executeUpdate();
-            return true;
+            rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                Alquiler alq = new Alquiler();
+                alq.setId_auto(rs.getInt("id_auto"));
+                alq.setId_usuario(rs.getInt("id_usuario"));
+                alq.setFecha_inicio(rs.getDate("fecha_inicio"));
+                alq.setFecha_fin(rs.getDate("fecha_fin"));
+                alq.setTotal(rs.getDouble("total"));
+                list.add(alq);
+            }
+            return list;
         } catch (Exception e) {
         }
-        return false;
+        return list;
     }
 
     @Override

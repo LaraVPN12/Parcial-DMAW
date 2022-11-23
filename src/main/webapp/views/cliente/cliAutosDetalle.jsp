@@ -10,6 +10,7 @@
 <%@page import="java.util.List"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -21,6 +22,7 @@
         int id_auto = 0;
         if (request.getParameter("id") != null) {
             id_auto = Integer.parseInt(request.getParameter("id"));
+            autoDAO.updateIsRented(id_auto);
             list = autoDAO.getAuto(id_auto);
         }
         String tipo = autoDAO.getTipoAuto(list.get(0).getId_tipo_auto());
@@ -193,8 +195,18 @@
             </div>
             <%
                 if (session.getAttribute("hasrented").equals("true")) {
-                %>
-                
+            %>
+            <div class='bg-orange-100 border border-orange-400 text-red-700 px-4 py-3 rounded'>
+                <strong class='font-bold'>¡NO DISPONIBLE!</strong><br>
+                <span class=''><c:out value="No puedes alquilar otro auto porque ya tienes un alquiler activo"/></span>
+            </div>
+            <%
+            } else if (list.get(0).getIsrented()) {
+            %>
+            <div class='bg-orange-100 border border-orange-400 text-red-700 px-4 py-3 rounded'>
+                <strong class='font-bold'>¡NO DISPONIBLE!</strong><br>
+                <span class=''><c:out value="No puedes alquilar este auto porque alguien lo tiene alquilado"/></span>
+            </div>
             <%
             } else {
             %>
@@ -208,30 +220,30 @@
                     <form method="" action="/Parcial-DMAW/AlquilerController" class="w-full">
                         <div class="flex h-auto w-full justify-between items-center">
                             <div class="flex">
-                            <!-- Item -->
-                            <div class="flex flex-col mr-10">
-                                <div class=" text-white">
-                                    Fecha de Alquiler
+                                <!-- Item -->
+                                <div class="flex flex-col mr-10">
+                                    <div class=" text-white">
+                                        Fecha de Alquiler
+                                    </div>
+                                    <div class="flex items-center justify-center h-full">
+                                        <span class="text-white">Hoy: <% out.print(fecha);%></span>
+                                    </div>
                                 </div>
-                                <div class="flex items-center justify-center h-full">
-                                    <span class="text-white">Hoy: <% out.print(fecha);%></span>
+                                <!-- Item -->
+                                <div class="flex flex-col mr-10">
+                                    <div class=" text-white">
+                                        Fecha de Devolución 
+                                    </div>
+                                    <div class="flex">
+                                        <input class="w-auto rounded-md bg-slate-100 focus:outline-none px-3 py-2 mt-2 mr-1" type="date" name="fin_date" id="dateControl" required>
+                                    </div>
+                                    <input hidden="true" type="number" name="id_auto" value="<% out.print(id_auto); %>">
+                                    <input hidden="true" type="text" name="precio" value="<% out.print(precio);%>">
                                 </div>
                             </div>
-                            <!-- Item -->
-                            <div class="flex flex-col mr-10">
-                                <div class=" text-white">
-                                    Fecha de Devolución 
-                                </div>
-                                <div class="flex">
-                                    <input class="w-auto rounded-md bg-slate-100 focus:outline-none px-3 py-2 mt-2 mr-1" type="date" name="fin_date" id="dateControl" required>
-                                </div>
-                                <input hidden="true" type="number" name="id_auto" value="<% out.print(id_auto); %>">
-                                <input hidden="true" type="text" name="precio" value="<% out.print(precio);%>">
+                            <div class="flex h-full">
+                                <input class="py-2 px-10 bg-[#035771] font-bold text-white rounded-lg" type="submit" name="action" value="Alquilar">
                             </div>
-                        </div>
-                        <div class="flex h-full">
-                            <input class="py-2 px-10 bg-[#035771] font-bold text-white rounded-lg" type="submit" name="action" value="Alquilar">
-                        </div>
                         </div>  
                     </form>
                 </div>
@@ -242,15 +254,15 @@
         </div>
     </body>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             var dtToday = new Date();
             var month = dtToday.getMonth() + 1;
             var day = dtToday.getDate() + 1;
             var year = dtToday.getFullYear();
-            if(month < 10) month = '0' + month.toString();
-            if(day < 10) day ? '0' + day.toString();
-            
-            var maxDate = year + '-' + month + '-' + day;
+            if (month < 10)
+                month = '0' + month.toString();
+            if (day < 10) day ? '0' + day.toString();
+                    var maxDate = year + '-' + month + '-' + day;
             $('#dateControl').attr('min', maxDate);
         });
     </script>
