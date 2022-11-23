@@ -76,6 +76,29 @@ public class AlquilerDAO implements IAlquilerCRUD {
             ps.executeUpdate();
             return true;
     }
+    
+    public List getAlquileresActivosByUserId(int id_usuario, Date fecha) {
+        ArrayList<Alquiler> list = new ArrayList<>();
+        String sql = "SELECT * FROM alquiler WHERE id_usuario = '" + id_usuario + "' AND fecha_fin >= '"+fecha+"'  ORDER BY fecha_fin DESC";
+        try {
+            conn = cn.getConnection();
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                Alquiler alq = new Alquiler();
+                alq.setId_auto(rs.getInt("id_auto"));
+                alq.setId_usuario(rs.getInt("id_usuario"));
+                alq.setFecha_inicio(rs.getDate("fecha_inicio"));
+                alq.setFecha_fin(rs.getDate("fecha_fin"));
+                alq.setTotal(rs.getDouble("total"));
+                list.add(alq);
+            }
+            return list;
+        } catch (Exception e) {
+        }
+        return list;
+    }
 
     @Override
     public Alquiler getAlquiler(int id_alquiler) {

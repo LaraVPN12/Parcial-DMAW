@@ -121,7 +121,16 @@ public class AutoDAO implements IAutoCRUD {
 
     @Override
     public boolean deleteAuto(int id_auto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql = "DELETE FROM auto WHERE id_auto = '" + id_auto + "' AND isrented = false";
+        try {
+            conn = cn.getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+
+        }
+        return false;
     }
 
     public boolean updateIsRented(int id_auto) throws ClassNotFoundException, SQLException {

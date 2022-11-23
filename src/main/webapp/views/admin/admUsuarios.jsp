@@ -31,7 +31,7 @@
                                 <th class="px-3 py-2">NOMBRE</th>
                                 <th class="px-3 py-2">APELLIDO</th>
                                 <th class="px-3 py-2">CORREO</th>
-                                <th class="px-3 py-2">CONTRA</th>
+                                <th class="px-3 py-2">PASSWORD</th>
                             </tr>
                         </thead>
                         <tbody>
