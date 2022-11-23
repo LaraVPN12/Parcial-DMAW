@@ -69,19 +69,12 @@ public class AlquilerDAO implements IAlquilerCRUD {
         return list;
     }
     
-    public Boolean deleteAlquileresByUsuario(int id_usuario) {
-        Date now = new Date();
-        String fecha = new SimpleDateFormat("yyyy-MM-dd").format(now);
-        String sql = "DELETE * FROM alquiler WHERE id_usuario = '" + id_usuario + "' AND fecha_fin < ?";
-        try {
+    public Boolean deleteAlquileresByUsuario(int id_usuario) throws ClassNotFoundException, SQLException {
+        String sql = "DELETE FROM alquiler WHERE id_usuario = '" + id_usuario + "' AND fecha_fin < '"+ new Date() +"'";
             conn = cn.getConnection();
             ps = conn.prepareStatement(sql);
-            ps.setString(1, fecha);
             ps.executeUpdate();
             return true;
-        } catch (Exception e) {
-        }
-        return false;
     }
 
     @Override

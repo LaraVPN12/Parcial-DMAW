@@ -22,10 +22,10 @@
             <form action="../EncuestaController">
                 <div class="h-auto w-auto flex flex-col border bg-transparent rounded-3xl p-10 mt-10 mb-10">
                     <!-- Filtrar por Fecha -->
-<!--                    <div class="flex justify-start items-center mb-10">
-                        <input class="w-40 rounded-md bg-slate-100 focus:outline-none py-1 text-center mr-3" type="date" name="date">
-                        <input class="px-3 py-1 bg-blue-800 font-bold text-white rounded-md" type="submit" name="action" value="Filtrar">
-                    </div>-->
+                    <!--                    <div class="flex justify-start items-center mb-10">
+                                            <input class="w-40 rounded-md bg-slate-100 focus:outline-none py-1 text-center mr-3" type="date" name="date">
+                                            <input class="px-3 py-1 bg-blue-800 font-bold text-white rounded-md" type="submit" name="action" value="Filtrar">
+                                        </div>-->
                     <!-- Tabla -->
                     <div class="flex flex-col justify-center items-center">
                         <table class="table">
@@ -70,16 +70,14 @@
 //                                        list = survey.listEncuestas();
 //                                    }
                                     list = alquilerDao.getAlquileresByUserId(Integer.parseInt(session.getAttribute("id_usuario").toString()));
-                                    
-                                    
+
                                     for (int i = 0; i < list.size(); i++) {
                                         String autoName = autoDao.getAutoName(list.get(i).getId_auto());
-
                                         out.print(
                                                 "<tr><td class='px-3 py-2 border-b border-gray-300 shadow-md text-center'>" + autoName + "</td>"
                                                 + "<td class='px-3 py-2 border-b border-gray-300 shadow-md text-center'>" + list.get(i).getFecha_inicio().toString() + "</td>"
-                                                + "<td class='px-3 py-2 border-b border-gray-300 shadow-md text-center'>" + list.get(i).getFecha_fin().toString()+ "</td>"
-                                                + "<td class='px-3 py-2 border-b border-gray-300 shadow-md text-center'>" + "$" + list.get(i).getTotal()+ "</td>"
+                                                + "<td class='px-3 py-2 border-b border-gray-300 shadow-md text-center'>" + list.get(i).getFecha_fin().toString() + "</td>"
+                                                + "<td class='px-3 py-2 border-b border-gray-300 shadow-md text-center'>" + "$" + list.get(i).getTotal() + "</td>"
                                                 + "<td class='px-3 py-2 border-b border-gray-300 shadow-md justify-center'>"
                                                 + "<a href='/Parcial-DMAW/views/cliente/cliAutosDetalle.jsp?id=" + list.get(i).getId_auto() + "'>"
                                                 + "<img src='https://cdn-icons-png.flaticon.com/128/709/709586.png' class='w-4 h-4'></a></td></tr>"
@@ -91,6 +89,9 @@
                     </div>
                 </div>
             </form>
+            <div class="">
+                <a class="w-1/2 bg-red-600 rounded p-5 text-white" href="/Parcial-DMAW/AlquilerController?action=eliminar">Eliminar historial</a>
+            </div>
         </div>
     </body>
 </html>

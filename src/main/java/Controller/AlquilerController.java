@@ -84,7 +84,10 @@ public class AlquilerController extends HttpServlet {
                 }
                 response.sendRedirect("/Parcial-DMAW/views/cliente/cliHistorial.jsp");
                 break;
-
+            case "eliminar":
+                alquilerDAO.deleteAlquileresByUsuario(Integer.parseInt(session.getAttribute("id_usuario").toString()));
+                response.sendRedirect("/Parcial-DMAW/views/cliente/cliHistorial.jsp");
+                break;
             default:
                 throw new AssertionError();
         }
