@@ -48,7 +48,7 @@ public class AlquilerDAO implements IAlquilerCRUD {
     
     public List getAlquileresByUserId(int id_usuario) {
         ArrayList<Alquiler> list = new ArrayList<>();
-        String sql = "SELECT * FROM alquiler WHERE id_usuario = '" + id_usuario + "' ORDER BY fecha_fin DESC";
+        String sql = "SELECT * FROM alquiler WHERE id_usuario = '" + id_usuario + "' ORDER BY fecha_fin ASC";
         try {
             conn = cn.getConnection();
             ps = conn.prepareStatement(sql);

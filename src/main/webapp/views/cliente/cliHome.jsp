@@ -11,8 +11,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Página Principal</title>
         <jsp:include page="cliNav.jsp" flush="true" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+
     </head>
-    <body>
+    <body class="h-full bg-gray-800">
         <!-- Principal -->
         <div class="flex flex-col justify-center items-center h-full">
             <!-- Heading -->
@@ -25,32 +27,19 @@
                     <div class="text-[40px] text-white mb-5">
                         Haz de este viaje inmemorable!
                     </div>
-                    <!-- Formulario -->
-                    <div class="h-auto w-auto flex bg-black/50 rounded-xl shadow-xl p-5">
-                        <div class="flex">
-                            <!-- Item -->
-                            <div class="flex flex-col mr-10">
-                                <div class=" text-white mb-2">
-                                    Fecha de Alquiler
-                                </div>
-                                <div class="flex">
-                                    <input class="w-auto rounded-md bg-slate-100 focus:outline-none px-3 py-2 mt-2 mr-1" type="date" name="date">
-                                    <input class="w-auto rounded-md bg-slate-100 focus:outline-none px-3 py-2 mt-2" type="time" name="hour">
-                                </div>
-                            </div>
-                            <!-- Item -->
-                            <div class="flex flex-col mr-10">
-                                <div class=" text-white mb-2">
-                                    Fecha de Devolución
-                                </div>
-                                <div class="flex">
-                                    <input class="w-auto rounded-md bg-slate-100 focus:outline-none px-3 py-2 mt-2 mr-1" type="date" name="date">
-                                    <input class="w-auto rounded-md bg-slate-100 focus:outline-none px-3 py-2 mt-2" type="time" name="hour">
-                                </div>
-                            </div>
-                            <div class="flex justify-end items-end">
-                                <input class="py-3 px-10 bg-[#035771] font-bold text-white rounded-lg" type="submit" name="survey" value="Buscar">
-                            </div>
+                </div>
+            </div>
+            <div class="w-full flex flex-col justify-start items-center h-full bg-gray-800 mt-10">
+                <div class="flex justify-center items-center">
+                    <div class="text-[200px] mr-5">
+                        <i class="bi bi-car-front-fill text-white"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <div class="text-[50px] font-bold text-white">
+                            Alquileres
+                        </div>
+                        <div class="text-[30px] italic text-white">
+                            Alquilar autos nunca fue tan fácil
                         </div>
                     </div>
                 </div>
